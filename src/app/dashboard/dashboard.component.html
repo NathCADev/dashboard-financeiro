@@ -1,0 +1,117 @@
+<div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+        <h1>Sistema Financeiro</h1>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main class="app-content">
+        <div class="dashboard-container">
+            <h1 class="dashboard-title">💰 Dashboard Financeiro</h1>
+
+            <!-- Filtros -->
+            <!-- Filtros -->
+            <section class="dashboard-section filters-section">
+                <mat-form-field appearance="outline">
+                    <mat-label>Mês</mat-label>
+                    <mat-select [(ngModel)]="filtroMes" (ngModelChange)="filtrarLancamentos()">
+                        <mat-option value="">Todos</mat-option> <!-- Option for all months -->
+                        <mat-option *ngFor="let mes of meses" [value]="mes">{{ mes }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Categoria</mat-label>
+                    <mat-select [(ngModel)]="filtroCategoria" (ngModelChange)="filtrarLancamentos()">
+                        <mat-option value="">Todas</mat-option>
+                        <mat-option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria
+                            }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Tipo</mat-label>
+                    <mat-select [(ngModel)]="filtroTipo" (ngModelChange)="filtrarLancamentos()">
+                        <mat-option value="">Todos</mat-option>
+                        <mat-option value="rendimento">Rendimento</mat-option>
+                        <mat-option value="despesa">Despesa</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </section>
+
+
+            <!-- Resumo -->
+            <section class="dashboard-section summary-section">
+                <div class="summary-card card-rendimentos">
+                    <div class="card-title">Total de Rendimentos</div>
+                    <div class="card-value">{{ totalRendimentos | currency:'BRL' }}</div>
+                </div>
+
+                <div class="summary-card card-despesas">
+                    <div class="card-title">Total de Despesas</div>
+                    <div class="card-value">{{ totalDespesas | currency:'BRL' }}</div>
+                </div>
+
+                <div class="summary-card card-saldo">
+                    <div class="card-title">Saldo</div>
+                    <div class="card-value">{{ saldo | currency:'BRL' }}</div>
+                </div>
+            </section>
+
+            <!-- Gráfico -->
+            <section class="dashboard-section chart-section">
+                <div class="chart-container">
+                    <canvas baseChart [data]="chartData" [type]="'pie'" [options]="chartOptions"></canvas>
+                </div>
+            </section>
+
+            <!-- Lista de lançamentos -->
+            <section class="dashboard-section transactions-section">
+                <h2 class="transactions-title">Lançamentos</h2>
+                <table mat-table [dataSource]="lancamentosFiltrados" class="mat-elevation-z2">
+                    <!-- Data Column -->
+                    <ng-container matColumnDef="data">
+                        <th mat-header-cell *matHeaderCellDef>Data</th>
+                        <td mat-cell *matCellDef="let item" data-label="Data"> {{ item.data | date:'dd/MM/yyyy' }} </td>
+                    </ng-container>
+
+                    <!-- Descrição Column -->
+                    <ng-container matColumnDef="descricao">
+                        <th mat-header-cell *matHeaderCellDef>Descrição</th>
+                        <td mat-cell *matCellDef="let item" data-label="Descrição"> {{ item.descricao }} </td>
+                    </ng-container>
+
+                    <!-- Categoria Column -->
+                    <ng-container matColumnDef="categoria">
+                        <th mat-header-cell *matHeaderCellDef>Categoria</th>
+                        <td mat-cell *matCellDef="let item" data-label="Categoria"> {{ item.categoria }} </td>
+                    </ng-container>
+
+                    <!-- Tipo Column -->
+                    <ng-container matColumnDef="tipo">
+                        <th mat-header-cell *matHeaderCellDef>Tipo</th>
+                        <td mat-cell *matCellDef="let item" data-label="Tipo"> {{ item.tipo }} </td>
+                    </ng-container>
+
+                    <!-- Valor Column -->
+                    <ng-container matColumnDef="valor">
+                        <th mat-header-cell *matHeaderCellDef>Valor</th>
+                        <td mat-cell *matCellDef="let item"
+                            [ngClass]="item.tipo === 'rendimento' ? 'rendimento' : 'despesa'" data-label="Valor">
+                            {{ item.valor | currency:'BRL' }}
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="['data', 'descricao', 'categoria', 'tipo', 'valor']"></tr>
+                    <tr mat-row *matRowDef="let row; columns: ['data', 'descricao', 'categoria', 'tipo', 'valor'];">
+                    </tr>
+                </table>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <p>© 2025 Dashboard Financeiro | Desenvolvido com Angular Material</p>
+    </footer>
+</div>

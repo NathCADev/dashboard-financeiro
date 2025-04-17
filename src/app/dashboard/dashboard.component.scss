@@ -1,0 +1,295 @@
+$primary-color: #1976d2;
+$primary-light: #e3f2fd;
+$success-color: #4caf50;
+$success-light: #e8f5e9;
+$danger-color: #f44336;
+$danger-light: #ffebee;
+$background: #f5f5f5;
+$background-content: #ffffff;
+$text-dark: #333333;
+$text-light: #757575;
+$border-color: #e0e0e0;
+$card-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: $background;
+  color: $text-dark;
+  min-height: 100vh;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  background-color: $primary-color;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  h1 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+}
+
+.app-content {
+  flex: 1;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.dashboard-container {
+  width: 100%;
+  max-width: 1000px;
+  background-color: $background-content;
+  border-radius: 8px;
+  box-shadow: $card-shadow;
+  padding: 1.5rem;
+}
+
+.dashboard-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: $primary-color;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid $border-color;
+}
+
+.filters-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  
+  .mat-form-field {
+    width: 100%;
+  }
+}
+
+.summary-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.summary-card {
+  border-radius: 6px;
+  padding: 1rem;
+  box-shadow: $card-shadow;
+  
+  .card-title {
+    font-size: 0.9rem;
+    color: $text-light;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-value {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+}
+
+.card-rendimentos {
+  background-color: $primary-light;
+  border-left: 3px solid $primary-color;
+}
+
+.card-despesas {
+  background-color: $danger-light;
+  border-left: 3px solid $danger-color;
+}
+
+.card-saldo {
+  background-color: $success-light;
+  border-left: 3px solid $success-color;
+}
+
+.chart-section {
+  margin: 1.5rem 0;
+  display: flex;
+  justify-content: center;
+  overflow: visible;
+}
+
+.chart-container {
+  width: 100%;
+  max-width: 450px;
+  background-color: $background-content;
+  border-radius: 6px;
+  box-shadow: $card-shadow;
+  padding: 1rem;
+  
+  canvas {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 280px;
+    margin: 0 auto;
+  }
+}
+
+.transactions-section {
+  margin-top: 1.5rem;
+  
+  & {
+    min-width: auto; 
+  }
+
+  .transactions-title {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    
+    th {
+      background-color: #f5f5f5;
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: $text-light;
+    }
+    
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid $border-color;
+      font-size: 0.875rem;
+    }
+  }
+}
+
+
+
+.rendimento {
+  color: $success-color;
+}
+
+.despesa {
+  color: $danger-color;
+}
+
+.mat-table {
+  width: 100%;
+  
+  .mat-header-cell {
+    font-weight: 500;
+    color: $text-light;
+  }
+  
+  .mat-cell {
+    font-size: 0.875rem;
+  }
+}
+
+.app-footer {
+  background-color: #f5f5f5;
+  color: $text-light;
+  padding: 1rem;
+  text-align: center;
+  border-top: 1px solid $border-color;
+  font-size: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .app-content {
+    padding: 1rem 0.5rem;
+  }
+  
+  .dashboard-container {
+    padding: 1rem;
+  }
+  
+  .filters-section,
+  .summary-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .chart-container {
+    max-width: 100%;
+    
+    canvas {
+      max-height: 220px;
+    }
+  }
+  
+  .mat-header-row,
+  .mat-row {
+    padding: 0 0.5rem;
+  }
+  
+  th, td {
+    padding: 0.5rem;
+  }
+  
+  .transactions-section {
+    overflow-x: auto;
+    
+    table.mat-table {
+      min-width: 650px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .transactions-section {
+    table.mat-table {
+      min-width: auto;
+      &, thead, tbody, tr, th, td {
+        display: block;
+      }
+      
+      
+      thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+      
+      tr {
+        margin-bottom: 1rem;
+        border: 1px solid $border-color;
+        border-radius: 6px;
+        padding: 0.5rem;
+        box-shadow: $card-shadow;
+        background-color: $background-content;
+      }
+      
+      td {
+        border: none;
+        border-bottom: 1px solid $border-color;
+        position: relative;
+        padding-left: 50% !important;
+        text-align: right;
+        
+        &:before {
+          position: absolute;
+          top: 0.75rem;
+          left: 0.75rem;
+          width: 45%;
+          padding-right: 10px;
+          white-space: nowrap;
+          text-align: left;
+          font-weight: 500;
+          content: attr(data-label);
+        }
+        
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}
